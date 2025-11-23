@@ -1,0 +1,275 @@
+package com.tlp.srptweaks.mixin;
+
+import com.hbm.blocks.ModBlocks;
+import com.hbm.blocks.generic.WasteLeaves;
+import com.hbm.blocks.generic.WasteLog;
+import com.hbm.config.VersatileConfig;
+import com.hbm.entity.effect.EntityFalloutUnderGround;
+import com.tlp.srptweaks.util.ModConfigManager;
+import net.minecraft.block.*;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import org.spongepowered.asm.mixin.*;
+
+import java.util.Random;
+
+import static com.tlp.srptweaks.util.ModConfigManager.debugPrint;
+
+@Pseudo
+@Mixin(EntityFalloutUnderGround.class)
+public abstract class MixinEntityFalloutUnderGround {
+        static {
+                debugPrint("MixinEntityFalloutUnderGround loaded!");
+        }
+
+        @Shadow(remap = false) private int radius;
+        @Shadow(remap = false) private double s0;
+        @Shadow(remap = false) private double s1;
+        @Shadow(remap = false) private double s2;
+        @Shadow(remap = false) private double s3;
+        @Shadow(remap = false) private double s4;
+        @Shadow(remap = false) private double s5;
+        @Shadow(remap = false) private double s6;
+        @Shadow(remap = false) private double s7;
+        @Shadow(remap = false) IBlockState b;
+        @Shadow(remap = false) Block bblock;
+        @Shadow(remap = false) public abstract void placeBlockFromDist(double dist, Block b, BlockPos pos);
+
+        @Unique
+        private static final Random rand_a = new Random();
+
+        /**
+         * Adds a config override option to hardcoded blocks that get converted on getting irradiated.
+         * @author Tesla_P
+         * @reason There is no other way to define irradiation of modded Blocks
+         */
+        @Overwrite(remap = false)
+        private void stompRadRay(BlockPos.MutableBlockPos pos, double directionX, double directionY, double directionZ) {
+
+                debugPrint("Called stompRadRay();");
+
+                double posX = ((Entity) (Object) this).posX;
+                double posY = ((Entity) (Object) this).posY;
+                double posZ = ((Entity) (Object) this).posZ;
+                World world = ((Entity) (Object) this).world;
+
+
+                for(int l = 0; l < radius; l++) {
+                        pos.setPos(posX+directionX*l, posY+directionY*l, posZ+directionZ*l);
+
+                        if(pos.getY() < 0 || pos.getY() > 255) return;
+
+                        if(world.isAirBlock(pos))
+                                continue;
+
+                        b = world.getBlockState(pos);
+                        bblock = b.getBlock();
+
+                        for (String string : ModConfigManager.falloutReplacementsString) {
+                                String[] replacement = string.replace("\"", "").split(",");
+                                ResourceLocation toReplace = new ResourceLocation(replacement[0]);
+                                ResourceLocation replaceWith = new ResourceLocation(replacement[1]);
+
+                                debugPrint("Going through falloutReplacementString, replace " + toReplace + " with " + replaceWith + " at " + Block.REGISTRY.getNameForObject(bblock));
+                                debugPrint(toReplace.toString());
+                                debugPrint(Block.REGISTRY.getNameForObject(bblock).toString());
+
+                                if (Block.REGISTRY.getNameForObject(bblock).equals(toReplace)) {
+                                        placeBlockFromDist(l, Block.REGISTRY.getObject(replaceWith), pos);
+                                        debugPrint("Radiation block replacement match found");
+                                        return;
+                                }
+                        }
+
+                        if(bblock instanceof BlockStone || bblock == Blocks.COBBLESTONE) {
+                                double ranDist = l * (1D + world.rand.nextDouble()*0.1D);
+                                if(ranDist > s1)
+                                        world.setBlockState(pos, ModBlocks.sellafield_slaked.getStateFromMeta(world.rand.nextInt(4)));
+                                else if(ranDist > s2)
+                                        world.setBlockState(pos, ModBlocks.sellafield_0.getStateFromMeta(world.rand.nextInt(4)));
+                                else if(ranDist > s3)
+                                        world.setBlockState(pos, ModBlocks.sellafield_1.getStateFromMeta(world.rand.nextInt(4)));
+                                else if(ranDist > s4)
+                                        world.setBlockState(pos, ModBlocks.sellafield_2.getStateFromMeta(world.rand.nextInt(4)));
+                                else if(ranDist > s5)
+                                        world.setBlockState(pos, ModBlocks.sellafield_3.getStateFromMeta(world.rand.nextInt(4)));
+                                else if(ranDist > s6)
+                                        world.setBlockState(pos, ModBlocks.sellafield_4.getStateFromMeta(world.rand.nextInt(4)));
+                                else if(ranDist <= s6)
+                                        world.setBlockState(pos, ModBlocks.sellafield_core.getStateFromMeta(world.rand.nextInt(4)));
+                                return;
+
+                        } else if(bblock == Blocks.BEDROCK || bblock == ModBlocks.ore_bedrock_oil || bblock == ModBlocks.ore_bedrock_block){
+                                if(world.isAirBlock(pos.up())) world.setBlockState(pos.up(), ModBlocks.toxic_block.getDefaultState());
+                                return;
+
+                        } else if(bblock instanceof BlockLeaves && !(bblock instanceof WasteLeaves)) {
+                                BlockLeaves bLeaf = (BlockLeaves) bblock;
+
+                                if(l > s1){
+                                        BlockPlanks.EnumType type = null;
+                                        try {
+                                                type = bLeaf.getWoodType(bLeaf.getMetaFromState(b));
+                                        } catch(UnsupportedOperationException ignored) {
+                                                //TK bag programming catch
+                                        }
+                                        if(type == null) type = BlockPlanks.EnumType.OAK;
+                                        world.setBlockState(pos, ModBlocks.waste_leaves.getDefaultState().withProperty(WasteLeaves.VARIANT, type));
+                                }else{
+                                        world.setBlockToAir(pos);
+                                }
+                                continue;
+
+                        } else if(bblock instanceof BlockBush) {
+                                if(world.getBlockState(pos.down()).getBlock() == Blocks.FARMLAND){
+                                        placeBlockFromDist(l, ModBlocks.waste_dirt, pos.down());
+                                        placeBlockFromDist(l, ModBlocks.waste_grass_tall, pos);
+                                } else if(world.getBlockState(pos.down()).getBlock() instanceof BlockGrass){
+                                        placeBlockFromDist(l, ModBlocks.waste_earth, pos.down());
+                                        placeBlockFromDist(l, ModBlocks.waste_grass_tall, pos);
+                                } else if(world.getBlockState(pos.down()).getBlock() == Blocks.MYCELIUM){
+                                        placeBlockFromDist(l, ModBlocks.waste_mycelium, pos.down());
+                                        world.setBlockState(pos, ModBlocks.mush.getDefaultState());
+                                }
+                                continue;
+
+                        } else if(bblock instanceof BlockGrass) {
+                                placeBlockFromDist(l, ModBlocks.waste_earth, pos);
+                                return;
+                        } else if(bblock instanceof BlockDirt) {
+                                BlockDirt.DirtType meta = b.getValue(BlockDirt.VARIANT);
+                                if(meta == BlockDirt.DirtType.DIRT)
+                                        placeBlockFromDist(l, ModBlocks.waste_dirt, pos);
+                                else if(meta == BlockDirt.DirtType.COARSE_DIRT)
+                                        placeBlockFromDist(l, ModBlocks.waste_gravel, pos);
+                                else if(meta == BlockDirt.DirtType.PODZOL)
+                                        placeBlockFromDist(l, ModBlocks.waste_mycelium, pos);
+                                return;
+                        } else if(bblock == Blocks.FARMLAND) {
+                                placeBlockFromDist(l, ModBlocks.waste_dirt, pos);
+                                continue;
+                        } else if(bblock instanceof BlockSnow) {
+                                placeBlockFromDist(l, ModBlocks.waste_snow, pos);
+                                continue;
+
+                        } else if(bblock instanceof BlockSnowBlock) {
+                                placeBlockFromDist(l, ModBlocks.waste_snow_block, pos);
+                                continue;
+
+                        } else if(bblock instanceof BlockIce) {
+                                world.setBlockState(pos, ModBlocks.waste_ice.getDefaultState());
+                                continue;
+
+                        } else if(bblock == Blocks.MYCELIUM) {
+                                placeBlockFromDist(l, ModBlocks.waste_mycelium, pos);
+                                return;
+
+                        } else if(bblock instanceof BlockGravel) {
+                                placeBlockFromDist(l, ModBlocks.waste_gravel, pos);
+                                return;
+
+                        } else if(bblock == Blocks.SANDSTONE) {
+                                placeBlockFromDist(l, ModBlocks.waste_sandstone, pos);
+                                return;
+                        } else if(bblock == Blocks.RED_SANDSTONE) {
+                                placeBlockFromDist(l, ModBlocks.waste_sandstone_red, pos);
+                                return;
+                        } else if(bblock == Blocks.HARDENED_CLAY || bblock == Blocks.STAINED_HARDENED_CLAY) {
+                                placeBlockFromDist(l, ModBlocks.waste_terracotta, pos);
+                                return;
+
+                        } else if(bblock instanceof BlockSand) {
+                                BlockSand.EnumType meta = b.getValue(BlockSand.VARIANT);
+                                if(rand_a.nextInt(60) == 0) {
+                                        placeBlockFromDist(l, meta == BlockSand.EnumType.SAND ? ModBlocks.waste_trinitite : ModBlocks.waste_trinitite_red, pos);
+                                } else {
+                                        placeBlockFromDist(l, meta == BlockSand.EnumType.SAND ? ModBlocks.waste_sand : ModBlocks.waste_sand_red, pos);
+                                }
+                                return;
+
+                        } else if(bblock == Blocks.CLAY) {
+                                world.setBlockState(pos, Blocks.HARDENED_CLAY.getDefaultState());
+                                return;
+
+                        } else if(bblock == Blocks.MOSSY_COBBLESTONE) {
+                                world.setBlockState(pos, Blocks.COAL_ORE.getDefaultState());
+                                return;
+
+                        } else if(bblock == Blocks.COAL_ORE) {
+                                if(l < s6){
+                                        int ra = rand_a.nextInt(150);
+                                        if(ra < 7) {
+                                                world.setBlockState(pos, Blocks.DIAMOND_ORE.getDefaultState());
+                                        } else if(ra < 10) {
+                                                world.setBlockState(pos, Blocks.EMERALD_ORE.getDefaultState());
+                                        }
+                                }
+                                return;
+
+                        } else if(bblock == Blocks.BROWN_MUSHROOM_BLOCK || bblock == Blocks.RED_MUSHROOM_BLOCK) {
+                                if(l < s0){
+                                        BlockHugeMushroom.EnumType meta = b.getValue(BlockHugeMushroom.VARIANT);
+                                        if(meta == BlockHugeMushroom.EnumType.STEM) {
+                                                world.setBlockState(pos, ModBlocks.mush_block_stem.getDefaultState());
+                                        } else {
+                                                world.setBlockState(pos, ModBlocks.mush_block.getDefaultState());
+                                        }
+                                }
+                                return;
+
+                        } else if(bblock instanceof BlockLog) {
+                                if(l < s0)
+                                        world.setBlockState(pos, ((WasteLog)ModBlocks.waste_log).getSameRotationState(b));
+                                return;
+
+                        } else if(b.getMaterial() == Material.WOOD && bblock != ModBlocks.waste_log && bblock != ModBlocks.waste_planks) {
+                                if(l < s0)
+                                        world.setBlockState(pos, ModBlocks.waste_planks.getDefaultState());
+                                return;
+                        } else if(b.getBlock() == Blocks.VINE) {
+                                world.setBlockToAir(pos);
+                                continue;
+
+                        } else if(bblock == ModBlocks.ore_uranium) {
+                                if(l <= s6){
+                                        if (rand_a.nextInt((int)(1+ VersatileConfig.getSchrabOreChance())) == 0 || l < s7)
+                                                world.setBlockState(pos, ModBlocks.ore_schrabidium.getDefaultState());
+                                        else
+                                                world.setBlockState(pos, ModBlocks.ore_uranium_scorched.getDefaultState());
+                                }
+                                return;
+
+                        } else if(bblock == ModBlocks.ore_nether_uranium) {
+                                if(l <= s5){
+                                        if(rand_a.nextInt((int)(1+VersatileConfig.getSchrabOreChance())) == 0)
+                                                world.setBlockState(pos, ModBlocks.ore_nether_schrabidium.getDefaultState());
+                                        else
+                                                world.setBlockState(pos, ModBlocks.ore_nether_uranium_scorched.getDefaultState());
+                                }
+                                return;
+
+                        } else if(bblock == ModBlocks.ore_gneiss_uranium) {
+                                if(l <= s4){
+                                        if(rand_a.nextInt((int)(1+VersatileConfig.getSchrabOreChance()/2)) == 0)
+                                                world.setBlockState(pos, ModBlocks.ore_gneiss_schrabidium.getDefaultState());
+                                        else
+                                                world.setBlockState(pos, ModBlocks.ore_gneiss_uranium_scorched.getDefaultState());
+                                }
+                                return;
+
+                        } else if(bblock == ModBlocks.brick_concrete) {
+                                if(rand_a.nextInt(60) == 0)
+                                        world.setBlockState(pos, ModBlocks.brick_concrete_broken.getDefaultState());
+                                return;
+                        } else if(b.getMaterial() == Material.ROCK || b.getMaterial() == Material.IRON){
+                                return;
+                        }
+                }
+
+        }
+}

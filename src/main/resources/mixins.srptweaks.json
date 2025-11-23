@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.tlp.srptweaks.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "verbose": true,
+  "mixins": [
+    "MixinEntityParasiteBase",
+    "MixinParasiteEventWorld",
+    "MixinEntityFalloutUnderGround",
+    "MixinEntityFalloutRain",
+    "MixinRadiationWorldHandler",
+    "MixinExplosionNukeGeneric"
+  ]
+}
