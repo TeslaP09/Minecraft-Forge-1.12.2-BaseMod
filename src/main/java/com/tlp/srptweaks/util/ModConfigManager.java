@@ -22,6 +22,7 @@ public class ModConfigManager {
     public static int setPoints;
     public static int invasionToOverworldTime;
     public static boolean debug;
+    public static boolean debugAttack;
 
     public static String[] parasiteWeaponsString = new String[]{};
     public static String[] parasiteWeaponsClass = new String[]{
@@ -117,6 +118,7 @@ public class ModConfigManager {
         setPoints = config.get("Invasion", "Set Points To", -400, "If points in Source Dimension are below/equal End Invasion Below Points, set phase in every dimension to Set Phase To and points to this").getInt();
         invasionToOverworldTime = config.get("Invasion", "Invasion To Overworld Time", 2688000, "After this amount of ticks, the invasion will leak from Target Dimension into the overworld").getInt();
         debug = config.get("Debug", "Debug Mode", false, "If things aren't working correctly, debug mode will print out what the mod's doing at any time").getBoolean();
+        debugAttack = config.get("Debug", "Debug Attacks", false, "If things aren't working correctly, print out debug about entities being attacked").getBoolean();
         onlyPlayerSource = config.get("Tweaks", "Only Players As Source", true, "If true, only reduce damage if it comes from a player, so not e.g. a zombie, this should improve performance").getBoolean();
         reduce = config.get("Tweaks", "Reduce Damage Mode", 1, "If damaged entity is not parasite and damage source item in Parasite Weapons, 0 = Do nothing, 1 = Reduce damage, 2 = Cancel damage event").getInt();
         reduceMulti = config.get("Tweaks", "Reduce Multiplier", 0.3D, "If Reduce damage == 1, multiply damage by this").getDouble();

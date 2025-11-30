@@ -1,0 +1,11 @@
+{
+  "package": "com.tlp.srptweaks.mixin.core",
+  "required": true,
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_8",
+  "target": "@env(DEFAULT)",
+  "verbose": true,
+  "mixins": [
+    "MixinAttackEntityFrom"
+  ]
+}

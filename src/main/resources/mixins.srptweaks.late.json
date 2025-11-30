@@ -5,11 +5,11 @@
   "compatibilityLevel": "JAVA_8",
   "verbose": true,
   "mixins": [
-    "MixinEntityParasiteBase",
-    "MixinParasiteEventWorld",
-    "MixinEntityFalloutUnderGround",
     "MixinEntityFalloutRain",
-    "MixinRadiationWorldHandler",
-    "MixinExplosionNukeGeneric"
+    "MixinEntityFalloutUnderGround",
+    "MixinEntityParasiteBase",
+    "MixinExplosionNukeGeneric",
+    "MixinParasiteEventWorld",
+    "MixinRadiationWorldHandler"
   ]
 }
