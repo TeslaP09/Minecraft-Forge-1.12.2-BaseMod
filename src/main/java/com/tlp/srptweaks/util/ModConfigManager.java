@@ -103,6 +103,7 @@ public class ModConfigManager {
             "desirepaths:grass_worn_5,hbm:waste_dirt",
             "desirepaths:grass_worn_6,hbm:waste_dirt",
     };
+    public static String[] preventItemUse = new String[]{};
 
     public static void SRPTweaksConfig() {
         Configuration config = new Configuration(new File("config/srptweaks/srptweaks.cfg"));
@@ -130,6 +131,7 @@ public class ModConfigManager {
         parasiteWeaponsString = config.getStringList("Parasitic Weapons Strings" ,"Tweaks" , parasiteWeaponsString, "List of resource ids of weapons that are considered parasitic weapons and will thus deal less damage to non parasitic entities");
         parasiteWeaponsClass = config.getStringList("Parasitic Weapons Class Names" ,"Tweaks" , parasiteWeaponsClass, "List of class names of weapons that are considered parasitic weapons and will thus deal less damage to non parasitic entities");
         falloutReplacementsString = config.getStringList("HBM NTM Radioactive Fallout Replacement" ,"HBM" , falloutReplacementsString, "List of blocks that get replaced by the second block when radioactive fallout happens.");
+        preventItemUse = config.getStringList("Prevent Item Use" ,"Tweaks" , preventItemUse, "List of resource ids of items that have their right click functionality removed.");
         config.save();
     }
 

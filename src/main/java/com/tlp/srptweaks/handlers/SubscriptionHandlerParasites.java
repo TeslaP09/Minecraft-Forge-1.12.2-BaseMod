@@ -8,8 +8,10 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
@@ -67,6 +69,23 @@ public class SubscriptionHandlerParasites {
                         event.setCanceled(true);
                         break;
                 }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onRightClick(PlayerInteractEvent.RightClickItem event) {
+        ItemStack stack = event.getItemStack();
+        if (stack.isEmpty()) return;
+
+        ResourceLocation name = stack.getItem().getRegistryName();
+        if (name == null) return;
+
+        String id = name.toString();
+
+        for (String blocked : ModConfigManager.preventItemUse) {
+            if (id.equals(blocked)) {
+                event.setCanceled(true);
             }
         }
     }
