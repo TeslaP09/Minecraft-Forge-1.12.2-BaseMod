@@ -43,31 +43,33 @@ public class SubscriptionHandlerParasites {
 
     @SubscribeEvent
     public void onLivingHurt(LivingHurtEvent event) {
-        EntityLivingBase attacker = (EntityLivingBase) event.getSource().getTrueSource();
-        boolean onlyPlayerSource = ModConfigManager.onlyPlayerSource;
-        if (onlyPlayerSource && (!(attacker instanceof EntityPlayer))) {
-            return;
-        }
-        EntityLivingBase entity = event.getEntityLiving();
-        int reduce = ModConfigManager.reduce;
-        double reduceMulti = ModConfigManager.reduceMulti;
-        ItemStack stack;
-        Item item;
-        float amount = event.getAmount();
+        if (event.getSource().getTrueSource() instanceof EntityLivingBase) {
+            EntityLivingBase attacker = (EntityLivingBase) event.getSource().getTrueSource();
+            boolean onlyPlayerSource = ModConfigManager.onlyPlayerSource;
+            if (onlyPlayerSource && (!(attacker instanceof EntityPlayer))) {
+                return;
+            }
+            EntityLivingBase entity = event.getEntityLiving();
+            int reduce = ModConfigManager.reduce;
+            double reduceMulti = ModConfigManager.reduceMulti;
+            ItemStack stack;
+            Item item;
+            float amount = event.getAmount();
 
 
-        if (reduce != 0) {
-            stack = (attacker != null) ? attacker.getHeldItemMainhand() : ItemStack.EMPTY;
-            item = !stack.isEmpty() ? stack.getItem() : null;
+            if (reduce != 0) {
+                stack = (attacker != null) ? attacker.getHeldItemMainhand() : ItemStack.EMPTY;
+                item = !stack.isEmpty() ? stack.getItem() : null;
 
-            if (!(entity instanceof EntityParasiteBase) && (ModConfigManager.isParasiteWeaponClass(item) || ModConfigManager.isParasiteWeaponRid(item))) {
-                switch (reduce) {
-                    case 1:
-                        event.setAmount((float) (amount * reduceMulti));
-                        break;
-                    case 2:
-                        event.setCanceled(true);
-                        break;
+                if (!(entity instanceof EntityParasiteBase) && (ModConfigManager.isParasiteWeaponClass(item) || ModConfigManager.isParasiteWeaponRid(item))) {
+                    switch (reduce) {
+                        case 1:
+                            event.setAmount((float) (amount * reduceMulti));
+                            break;
+                        case 2:
+                            event.setCanceled(true);
+                            break;
+                    }
                 }
             }
         }
