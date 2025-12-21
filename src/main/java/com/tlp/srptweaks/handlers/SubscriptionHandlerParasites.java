@@ -28,6 +28,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
+import static com.tlp.srptweaks.util.ModConfigManager.debugPrint;
+
 public class SubscriptionHandlerParasites {
     @SubscribeEvent
     public void onWorldTick(TickEvent.WorldTickEvent event) {
@@ -134,7 +136,7 @@ public class SubscriptionHandlerParasites {
         persist.setTag("GlobalSpawn", spawn);
         data.setTag(EntityPlayer.PERSISTED_NBT_TAG, persist);
 
-        System.out.println("Saved global spawn: " + player.dimension + ", " + bed.toString());
+        debugPrint("Saved global spawn: " + player.dimension + ", " + bed.toString());
     }
 
     @SubscribeEvent
@@ -156,7 +158,7 @@ public class SubscriptionHandlerParasites {
                 persist.setTag("GlobalSpawn", spawn);
                 data.setTag(EntityPlayer.PERSISTED_NBT_TAG, persist);
 
-                System.out.println("Saved GlobalSpawn: " + persist.getKeySet());
+                debugPrint("Saved GlobalSpawn: " + persist.getKeySet());
             }
         }
     }
@@ -177,7 +179,7 @@ public class SubscriptionHandlerParasites {
         int targetDim = spawn.getInteger("Dim");
         BlockPos pos = BlockPos.fromLong(spawn.getLong("Pos"));
 
-        System.out.println("GlobalSpawn: " + targetDim + ", " + pos.toString());
+        debugPrint("GlobalSpawn: " + targetDim + ", " + pos.toString());
 
         // If player already respawned in correct dimension, do nothing
         if (player.dimension == targetDim) return;
@@ -194,24 +196,24 @@ public class SubscriptionHandlerParasites {
 
         // Check if it's a bed block
         if (!block.isBed(state, targetWorld, pos, player)) {
-            System.out.println("No valid bed found at position: " + pos);
+            debugPrint("No valid bed found at position: " + pos);
             return;
         }
 
         // Get the actual bed spawn position (handles bed orientation)
         BlockPos spawnPos = EntityPlayer.getBedSpawnLocation(targetWorld, pos, false);
         if (spawnPos == null) {
-            System.out.println("Bed spawn location check failed");
+            debugPrint("Bed spawn location check failed");
             return;
         }
 
-        System.out.println("Teleporting to bed at: " + spawnPos);
+        debugPrint("Teleporting to bed at: " + spawnPos);
 
         player.getServer().addScheduledTask(() -> {
             player.changeDimension(targetDim, new ITeleporter() {
                 @Override
                 public void placeEntity(World world, Entity entity, float yaw) {
-                    System.out.println("Post-respawn teleporter placing at: " + pos.toString());
+                    debugPrint("Post-respawn teleporter placing at: " + pos.toString());
                     entity.setPositionAndUpdate(
                             pos.getX() + 0.5,
                             pos.getY() + 0.6,
