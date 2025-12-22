@@ -19,6 +19,8 @@ import zmaster587.advancedRocketry.api.IAtmosphere;
 import zmaster587.advancedRocketry.atmosphere.AtmosphereHandler;
 import zmaster587.advancedRocketry.atmosphere.AtmosphereType;
 
+import static com.tlp.srptweaks.util.ModConfigManager.debugPrint;
+
 @Pseudo
 @Mixin(targets = "atomicstryker.dynamiclights.client.modules.DroppedItemsLightSource$EntityItemAdapter", remap = false)
 public abstract class MixinDroppedItemsLightSourceClient {
@@ -42,7 +44,7 @@ public abstract class MixinDroppedItemsLightSourceClient {
                         lightLevel = 0;
                         enabled = false;
                         invokeDisableLight();
-                        System.out.println("Ran item disable light code");
+                        debugPrint("Ran item disable light code");
                     }
                 }
             }
