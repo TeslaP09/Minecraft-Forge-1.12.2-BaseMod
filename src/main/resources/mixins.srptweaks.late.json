@@ -5,11 +5,13 @@
   "compatibilityLevel": "JAVA_8",
   "verbose": true,
   "mixins": [
+    "MixinDroppedItemsLightSourceClient",
     "MixinEntityFalloutRain",
     "MixinEntityFalloutUnderGround",
     "MixinEntityParasiteBase",
     "MixinExplosionNukeGeneric",
     "MixinParasiteEventWorld",
+    "MixinPlayerSelfLightSourceClient",
     "MixinRadiationWorldHandler"
   ]
 }

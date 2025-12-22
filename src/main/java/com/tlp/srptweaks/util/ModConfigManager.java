@@ -80,6 +80,7 @@ public class ModConfigManager {
     };
     public static ArrayList<Class<?>> parasiteWeaponsClassList = new ArrayList<>();
     public static boolean globalBedSpawnOverridesDimension;
+    public static boolean disableDynamicLightsAR;
     public static int reduce;
     public static double reduceMulti;
     public static boolean onlyPlayerSource;
@@ -112,7 +113,6 @@ public class ModConfigManager {
         Configuration config = new Configuration(new File("config/srptweaks/srptweaks.cfg"));
         config.load();
         globalInvasionScenario = config.get("Invasion", "Global Invasion Scenario", true, "Whether global invasion features are enabled").getBoolean();
-        globalBedSpawnOverridesDimension = config.get("Tweaks", "Global Bed Spawn Overrides Dimension", true, "Whether global invasion features are enabled").getBoolean();
         sourceDimension = config.get("Invasion", "Source Dimension", 997, "The dimension the invasion originates from, so the dimension to check for points and phases for global progress").getInt();
         targetDimension = config.get("Invasion", "Target Dimension", 111, "The first dimension the invasion targeted, should be equal to the config value set in SRPMeteorConfig.cfg").getInt();
         minPoints = config.get("Invasion", "End Invasion Below Points", 0, "If points in Source Dimension are below/equal this, set phase in every dimension to Set Phase To and points to Set Points To").getInt();
@@ -123,6 +123,7 @@ public class ModConfigManager {
         debug = config.get("Debug", "Debug Mode", false, "If things aren't working correctly, debug mode will print out what the mod's doing at any time").getBoolean();
         debugAttack = config.get("Debug", "Debug Attacks", false, "If things aren't working correctly, print out debug about entities being attacked").getBoolean();
         globalBedSpawnOverridesDimension = config.get("Tweaks", "Global Bed Spawn Overrides Dimension", true, "If player can respawn in dim B but has a bed in dim A, should he respawn in dim A (tweaked, true) or in dim B at world spawn (vanilla, false)").getBoolean();
+        disableDynamicLightsAR = config.get("Tweaks", "Disable Dynamic lights on AR Planets", true, "Dynamically disables dynamic lights by Atomic Stryker for items that are not waterproof according to the DL config on planets that have their atmosphere defined as low/no oxygen.").getBoolean();
         onlyPlayerSource = config.get("Tweaks", "Only Players As Source", true, "If true, only reduce damage if it comes from a player, so not e.g. a zombie, this should improve performance").getBoolean();
         reduce = config.get("Tweaks", "Reduce Damage Mode", 1, "If damaged entity is not parasite and damage source item in Parasite Weapons, 0 = Do nothing, 1 = Reduce damage, 2 = Cancel damage event").getInt();
         reduceMulti = config.get("Tweaks", "Reduce Multiplier", 0.3D, "If Reduce damage == 1, multiply damage by this").getDouble();
