@@ -13,5 +13,8 @@
     "MixinParasiteEventWorld",
     "MixinPlayerSelfLightSourceClient",
     "MixinRadiationWorldHandler"
+  ],
+  "client": [
+    "MixinB3M_GuiIngame"
   ]
 }

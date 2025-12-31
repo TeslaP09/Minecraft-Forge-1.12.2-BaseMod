@@ -81,6 +81,8 @@ public class ModConfigManager {
     public static ArrayList<Class<?>> parasiteWeaponsClassList = new ArrayList<>();
     public static boolean globalBedSpawnOverridesDimension;
     public static boolean disableDynamicLightsAR;
+    public static int limitB3MHudWithItem;
+    public static String B3MHudItem;
     public static int reduce;
     public static double reduceMulti;
     public static boolean onlyPlayerSource;
@@ -124,6 +126,8 @@ public class ModConfigManager {
         debugAttack = config.get("Debug", "Debug Attacks", false, "If things aren't working correctly, print out debug about entities being attacked").getBoolean();
         globalBedSpawnOverridesDimension = config.get("Tweaks", "Global Bed Spawn Overrides Dimension", true, "If player can respawn in dim B but has a bed in dim A, should he respawn in dim A (tweaked, true) or in dim B at world spawn (vanilla, false)").getBoolean();
         disableDynamicLightsAR = config.get("Tweaks", "Disable Dynamic lights on AR Planets", true, "Dynamically disables dynamic lights by Atomic Stryker for items that are not waterproof according to the DL config on planets that have their atmosphere defined as low/no oxygen.").getBoolean();
+        limitB3MHudWithItem = config.get("Tweaks", "Only Show B3M Time HUD with Item", 1, "Dynamically disables the B3M time hud (if installed) when the player is not in possession of B3M HUD Item. 1 Checks the hotbar, 2 the whole player inventory.").getInt();
+        B3MHudItem = config.get("Tweaks", "B3M HUD Item", "minecraft:clock", "The Item to lock the B3M HUD behind").getString();
         onlyPlayerSource = config.get("Tweaks", "Only Players As Source", true, "If true, only reduce damage if it comes from a player, so not e.g. a zombie, this should improve performance").getBoolean();
         reduce = config.get("Tweaks", "Reduce Damage Mode", 1, "If damaged entity is not parasite and damage source item in Parasite Weapons, 0 = Do nothing, 1 = Reduce damage, 2 = Cancel damage event").getInt();
         reduceMulti = config.get("Tweaks", "Reduce Multiplier", 0.3D, "If Reduce damage == 1, multiply damage by this").getDouble();
