@@ -8,7 +8,7 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "1.3.7"
+version = "1.3.8"
 group = "com.tlp.srptweaks"
 archivesBaseName = "SRPTweaks"
 
@@ -47,6 +47,8 @@ dependencies {
     compile files("libs/DynamicLights-1.12.2.jar")
     compile files("libs/AdvancedRocketry-1.12.2-2.2.1-1.jar")
     compile files("libs/B3M-1.12.2-20.jar")
+    compile files("libs/DynamicSurroundings-1.12.2-3.6.3-fix.jar")
+    compile files("libs/soundphysics-1.1.15.jar")
 }
 
 processResources {

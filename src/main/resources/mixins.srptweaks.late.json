@@ -15,6 +15,7 @@
     "MixinRadiationWorldHandler"
   ],
   "client": [
-    "MixinB3M_GuiIngame"
+    "MixinB3M_GuiIngame",
+    "MixinSoundRegistry"
   ]
 }

@@ -111,6 +111,7 @@ public class ModConfigManager {
     };
     public static String[] preventItemUse = new String[]{};
 
+
     public static void SRPTweaksConfig() {
         Configuration config = new Configuration(new File("config/srptweaks/srptweaks.cfg"));
         config.load();
