@@ -10,6 +10,7 @@
     "MixinEntityFalloutUnderGround",
     "MixinEntityParasiteBase",
     "MixinExplosionNukeGeneric",
+    "MixinModifierAltitude",
     "MixinParasiteEventWorld",
     "MixinPlayerSelfLightSourceClient",
     "MixinRadiationWorldHandler"
