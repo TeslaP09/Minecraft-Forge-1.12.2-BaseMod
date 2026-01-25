@@ -38,6 +38,7 @@ public class SRPTweaks {
         // we need to call our function here, in order to execute the save / load
         ModConfigManager.SRPTweaksConfig();
         ModConfigManager.createClassList();
+        ModConfigManager.parseBlockWhitelist();
         logger.info("Finished saving / loading mod configuration");
         if (Loader.isModLoaded("srparasites")) {
             MinecraftForge.EVENT_BUS.register(new SubscriptionHandlerParasites());
