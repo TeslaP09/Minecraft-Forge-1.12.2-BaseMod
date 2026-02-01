@@ -17,6 +17,7 @@ public class ModConfigManager {
 
     public static int sourceDimension;
     public static int targetDimension;
+    public static int leakMinPhase;
     public static int minPoints;
     public static int minPhase;
     public static int setPhase;
@@ -143,11 +144,12 @@ public class ModConfigManager {
         globalInvasionScenario = config.get("Invasion", "Global Invasion Scenario", true, "Whether global invasion features are enabled").getBoolean();
         sourceDimension = config.get("Invasion", "Source Dimension", 997, "The dimension the invasion originates from, so the dimension to check for points and phases for global progress").getInt();
         targetDimension = config.get("Invasion", "Target Dimension", 111, "The first dimension the invasion targeted, should be equal to the config value set in SRPMeteorConfig.cfg").getInt();
+        leakMinPhase = config.get("Invasion", "Min Leak Phase", 111, "Phase as to be higher than or equal to this in Target Dimension in order for parasites to be able to leak into the overworld").getInt();
         minPoints = config.get("Invasion", "End Invasion Below Points", 0, "If points in Source Dimension are below/equal this, set phase in every dimension to Set Phase To and points to Set Points To").getInt();
         minPhase = config.get("Invasion", "End Invasion Below Phase", -1, "If phase in Source Dimension is below/equal this, set phase in every dimension to Set Phase To and points to Set Points To, -3 to disable").getInt();
         setPhase = config.get("Invasion", "Set Phase To", -2, "If points in Source Dimension are below/equal End Invasion Below Points, set phase in every dimension to this and points to Set Points To").getInt();
         setPoints = config.get("Invasion", "Set Points To", -400, "If points in Source Dimension are below/equal End Invasion Below Points, set phase in every dimension to Set Phase To and points to this").getInt();
-        invasionToOverworldTime = config.get("Invasion", "Invasion To Overworld Time", 2688000, "After this amount of ticks, the invasion will leak from Target Dimension into the overworld").getInt();
+        invasionToOverworldTime = config.get("Invasion", "Invasion To Overworld Time", 2688000, "Interval of ticks of world time in which the invasion tries to leak from Target Dimension into the overworld.").getInt();
         debug = config.get("Debug", "Debug Mode", false, "If things aren't working correctly, debug mode will print out what the mod's doing at any time").getBoolean();
         debugAttack = config.get("Debug", "Debug Attacks", false, "If things aren't working correctly, print out debug about entities being attacked").getBoolean();
         globalBedSpawnOverridesDimension = config.get("Vanilla", "Global Bed Spawn Overrides Dimension", true, "If player can respawn in dim B but has a bed in dim A, should he respawn in dim A (tweaked, true) or in dim B at world spawn (vanilla, false)").getBoolean();

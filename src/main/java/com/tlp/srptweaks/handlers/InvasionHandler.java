@@ -119,7 +119,23 @@ public class InvasionHandler {
             final ArrayList<Integer> dimEPtotalKills = (ArrayList<Integer>)points.get(srpData);
             final ArrayList<Byte> dimEPevolution = (ArrayList<Byte>) phase.get(srpData);
 
+            boolean allowLeak = false;
+
             debugPrint("SRPTweaks SRP main arrays fetched.");
+
+            for (int i = 0; i < dimEPid.size(); ++i) {
+                debugPrint("SRPTweaks looping through dimEPid, now at position" + i + ".");
+                if (dimEPid.get(i) == ModConfigManager.targetDimension) {
+                    if ((int)(dimEPevolution.get(i)) >= ModConfigManager.leakMinPhase) {
+                        allowLeak = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!allowLeak) return;
+
+            if (invasionData.getInvasionEnded()) return;
 
             for (int i = 0; i < dimEPid.size(); ++i) {
                 debugPrint("SRPTweaks looping through dimEPid, now at position" + i + ".");
@@ -161,16 +177,11 @@ public class InvasionHandler {
                                         )
                                 );
                             }
-
                         }
-
-                        killAllParasitesInDimension(ModConfigManager.sourceDimension);
-
                     }
                     break;
                 }
             }
-
         } catch (Exception ex) {
             ex.printStackTrace();
         }
