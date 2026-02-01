@@ -144,7 +144,7 @@ public class ModConfigManager {
         globalInvasionScenario = config.get("Invasion", "Global Invasion Scenario", true, "Whether global invasion features are enabled").getBoolean();
         sourceDimension = config.get("Invasion", "Source Dimension", 997, "The dimension the invasion originates from, so the dimension to check for points and phases for global progress").getInt();
         targetDimension = config.get("Invasion", "Target Dimension", 111, "The first dimension the invasion targeted, should be equal to the config value set in SRPMeteorConfig.cfg").getInt();
-        leakMinPhase = config.get("Invasion", "Min Leak Phase", 111, "Phase as to be higher than or equal to this in Target Dimension in order for parasites to be able to leak into the overworld").getInt();
+        leakMinPhase = config.get("Invasion", "Min Leak Phase", 4, "Phase as to be higher than or equal to this in Target Dimension in order for parasites to be able to leak into the overworld").getInt();
         minPoints = config.get("Invasion", "End Invasion Below Points", 0, "If points in Source Dimension are below/equal this, set phase in every dimension to Set Phase To and points to Set Points To").getInt();
         minPhase = config.get("Invasion", "End Invasion Below Phase", -1, "If phase in Source Dimension is below/equal this, set phase in every dimension to Set Phase To and points to Set Points To, -3 to disable").getInt();
         setPhase = config.get("Invasion", "Set Phase To", -2, "If points in Source Dimension are below/equal End Invasion Below Points, set phase in every dimension to this and points to Set Points To").getInt();
