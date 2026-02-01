@@ -34,9 +34,8 @@ public class SubscriptionHandlerParasites {
     @SubscribeEvent
     public void onWorldTick(TickEvent.WorldTickEvent event) {
         World world = event.world;
-        long time = world.getTotalWorldTime();
+        long time = world.getWorldTime();
         if (time % 20 == 0) {
-
 
             if (world.isRemote) return;
             if (event.phase != TickEvent.Phase.END) return;
