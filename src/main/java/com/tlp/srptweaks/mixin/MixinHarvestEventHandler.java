@@ -3,7 +3,10 @@ package com.tlp.srptweaks.mixin;
 import com.tlp.srptweaks.util.ModConfigManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.util.FakePlayer;
@@ -40,6 +43,28 @@ public abstract class MixinHarvestEventHandler {
                     return;
                 }
             }
+        }
+    }
+
+    @Inject(method = "slowMining", at = @At("HEAD"), cancellable = true)
+    private void onSlowMiningHead(PlayerEvent.BreakSpeed event, CallbackInfo ci) {
+        EntityPlayer player = event.getEntityPlayer();
+
+        if (player == null || player instanceof FakePlayer || player.capabilities.isCreativeMode) {
+            return;
+        }
+
+        ItemStack stack = player.getHeldItemMainhand();
+        if (stack.isEmpty()) return;
+
+        Enchantment enchant = Enchantment.REGISTRY.getObject(
+                new ResourceLocation("apotheosis:depth_miner")
+        );
+
+        if (enchant != null &&
+                EnchantmentHelper.getEnchantmentLevel(enchant, stack) > 0) {
+            debugPrint("Item has Depth Miner");
+            ci.cancel();
         }
     }
 
