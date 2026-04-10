@@ -21,10 +21,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import static com.tlp.srptweaks.util.ModConfigManager.debugPrint;
 
 @Mixin(EntityParasiteBase.class)
-public abstract class MixinEntityParasiteBase {
+public abstract class MixinSRPEntityParasiteBase {
     private boolean overheating = false;
     static {
-        debugPrint("MixinEntityParasiteBase loaded!");
+        debugPrint("MixinSRPEntityParasiteBase loaded!");
     }
 
     @Inject(method = "func_70636_d", at = @At("TAIL"), remap = false)

@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Pseudo
 @Mixin(value = ModifierAltitude.class, priority = 2000, remap = false)
-public abstract class MixinModifierAltitude {
+public abstract class MixinSimpleDifficultyModifierAltitude {
     @Inject(method="getWorldInfluence", at=@At("HEAD"), cancellable = true)
     public void injectGetWorldInfluence(World world, BlockPos pos, CallbackInfoReturnable<Float> cir) {
         if (ModConfigManager.changeSDAltitudeHandling) {

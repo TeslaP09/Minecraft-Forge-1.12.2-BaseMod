@@ -22,9 +22,9 @@ import static com.tlp.srptweaks.util.ModConfigManager.debugPrint;
 
 @Pseudo
 @Mixin(EntityFalloutRain.class)
-public abstract class MixinEntityFalloutRain {
+public abstract class MixinHBMEntityFalloutRain {
     static {
-        debugPrint("MixinEntityFalloutRain loaded!");
+        debugPrint("MixinHBMEntityFalloutRain loaded!");
     }
 
     @Shadow(remap = false) private int fallingRadius;

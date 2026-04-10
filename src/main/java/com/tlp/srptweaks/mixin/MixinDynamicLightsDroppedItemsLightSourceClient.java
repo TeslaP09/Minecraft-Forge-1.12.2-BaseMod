@@ -1,13 +1,11 @@
 package com.tlp.srptweaks.mixin;
 
-import atomicstryker.dynamiclights.client.modules.DroppedItemsLightSource;
 import com.tlp.srptweaks.util.ModConfigManager;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.WorldProvider;
 import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Shadow;
@@ -23,7 +21,7 @@ import static com.tlp.srptweaks.util.ModConfigManager.debugPrint;
 
 @Pseudo
 @Mixin(targets = "atomicstryker.dynamiclights.client.modules.DroppedItemsLightSource$EntityItemAdapter", remap = false)
-public abstract class MixinDroppedItemsLightSourceClient {
+public abstract class MixinDynamicLightsDroppedItemsLightSourceClient {
 
     @Shadow private EntityItem entity;
     @Shadow private int lightLevel;

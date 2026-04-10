@@ -18,10 +18,10 @@ import static com.tlp.srptweaks.util.ModConfigManager.debugPrint;
 
 @Pseudo
 @Mixin(ExplosionNukeGeneric.class)
-public class MixinExplosionNukeGeneric {
+public class MixinHBMExplosionNukeGeneric {
 
     static {
-        debugPrint("MixinExplosionNukeGeneric loaded!");
+        debugPrint("MixinHBMExplosionNukeGeneric loaded!");
     }
 
     @Inject(method = "wasteDest", at = @At("HEAD"), remap = false)

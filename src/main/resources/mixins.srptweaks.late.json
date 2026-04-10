@@ -5,20 +5,21 @@
   "compatibilityLevel": "JAVA_8",
   "verbose": true,
   "mixins": [
-    "MixinDroppedItemsLightSourceClient",
-    "MixinEntityFalloutRain",
-    "MixinEntityFalloutUnderGround",
-    "MixinEntityParasiteBase",
-    "MixinExplosionNukeGeneric",
-    "MixinHarvestEventHandler",
-    "MixinModifierAltitude",
+    "MixinTinkerSurvivalItemUse",
+    "MixinDynamicLightsDroppedItemsLightSourceClient",
+    "MixinHBMEntityFalloutRain",
+    "MixinHBMEntityFalloutUnderGround",
+    "MixinSRPEntityParasiteBase",
+    "MixinHBMExplosionNukeGeneric",
+    "MixinTinkerSurvivalHarvestEventHandler",
+    "MixinSimpleDifficultyModifierAltitude",
     "MixinParasiteEventWorld",
-    "MixinPlayerSelfLightSourceClient",
-    "MixinPotionNegation",
-    "MixinRadiationWorldHandler"
+    "MixinDynamicLightsPlayerSelfLightSourceClient",
+    "MixinBountifulBaublesPotionNegation",
+    "MixinHBMRadiationWorldHandler"
   ],
   "client": [
     "MixinB3M_GuiIngame",
-    "MixinSoundRegistry"
+    "MixinDSurroundSoundRegistry"
   ]
 }

@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Pseudo
 @Mixin(value = PotionNegation.class, remap=false)
-public abstract class MixinPotionNegation {
+public abstract class MixinBountifulBaublesPotionNegation {
     @Inject(method="potionApply", at=@At("HEAD"), cancellable = true)
     private static void injectPotionApply(PotionEvent.PotionApplicableEvent event, CallbackInfo ci) {
         if (event.getPotionEffect().getPotion().getRegistryName() == null) {

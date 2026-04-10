@@ -23,10 +23,7 @@ import net.minecraft.world.gen.ChunkProviderServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Pseudo;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
 import java.util.Map.Entry;
 
 import java.util.Collection;
@@ -35,9 +32,9 @@ import static com.tlp.srptweaks.util.ModConfigManager.debugPrint;
 
 @Pseudo
 @Mixin(RadiationWorldHandler.class)
-public class MixinRadiationWorldHandler {
+public class MixinHBMRadiationWorldHandler {
     static {
-        debugPrint("MixinRadiationWorldHandler loaded!");
+        debugPrint("MixinHBMRadiationWorldHandler loaded!");
     }
 
     /**

@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Mixin(SoundRegistry.class)
-public abstract class MixinSoundRegistry {
+public abstract class MixinDSurroundSoundRegistry {
 
     @ModifyConstant(
             method = "preInit",

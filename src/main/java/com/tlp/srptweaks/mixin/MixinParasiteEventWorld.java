@@ -20,7 +20,7 @@ import static com.tlp.srptweaks.util.ModConfigManager.debugPrint;
 @Mixin(ParasiteEventWorld.class)
 public abstract class MixinParasiteEventWorld {
     static {
-        debugPrint("MixinEntityParasiteBase loaded!");
+        debugPrint("MixinSRPEntityParasiteBase loaded!");
     }
 
     @Inject(method="SpreadBiome", at = @At("HEAD"), cancellable = true, remap = false)

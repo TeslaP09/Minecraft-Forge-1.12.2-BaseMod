@@ -18,7 +18,7 @@ import zmaster587.advancedRocketry.atmosphere.AtmosphereType;
 
 @Pseudo
 @Mixin(PlayerSelfLightSource.class)
-public abstract class MixinPlayerSelfLightSourceClient {
+public abstract class MixinDynamicLightsPlayerSelfLightSourceClient {
 
     @Inject(method="checkPlayerWater", at = @At("HEAD"), cancellable = true, remap = false)
     private void injectCheckPlayerWater(EntityPlayer thePlayer, CallbackInfoReturnable<Boolean> cir) {

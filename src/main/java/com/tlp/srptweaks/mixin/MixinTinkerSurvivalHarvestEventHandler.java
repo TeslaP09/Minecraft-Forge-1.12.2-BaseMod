@@ -17,6 +17,7 @@ import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import tinkersurvival.event.HarvestEventHandler;
 
 import java.util.Set;
@@ -25,7 +26,7 @@ import static com.tlp.srptweaks.util.ModConfigManager.*;
 
 @Pseudo
 @Mixin(value = HarvestEventHandler.class, remap = false)
-public abstract class MixinHarvestEventHandler {
+public abstract class MixinTinkerSurvivalHarvestEventHandler {
 
     @Inject(method = "breakBlock", at = @At(value = "HEAD"), cancellable = true)
     private void injectBreakBlockCheck(BlockEvent.BreakEvent event, CallbackInfo ci) {
@@ -95,6 +96,14 @@ public abstract class MixinHarvestEventHandler {
         float currentSpeed = event.getNewSpeed();
         event.setNewSpeed(currentSpeed * heightFactor);
         debugPrint("Multiplied mining speed by " + heightFactor);
+    }
+
+    @Inject(method = "isRightTool", at = @At("HEAD"), cancellable = true)
+    private void injectIsRightTool(ItemStack heldItemStack, int neededHarvestLevel, String neededToolClass, String toolClass, Block block, String blockMod, CallbackInfoReturnable<Boolean> cir) {
+        if (tinkersurvivalDisableToolcheck) {
+            cir.setReturnValue(true);
+            cir.cancel();
+        }
     }
 
     private float calculateHeightFactor(double y) {
