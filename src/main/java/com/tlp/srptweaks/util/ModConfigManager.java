@@ -184,7 +184,7 @@ public class ModConfigManager {
         tinkersurvivalHarderBranchMiningMinY = config.get("Tinkers_Survival", "Harder Branch Mining Min Y", 12, "If Tinkers Survival Harder Branch Mining, at what Y-level should the mining speed stop slowing down").getInt();
         tinkersurvivalHarderBranchMiningMinMulti = config.get("Tinkers_Survival", "Harder Branch Mining Min Slowdown Multiplier", 0.3, "If Tinkers Survival Harder Branch Mining, what should be the min slowdown multiplier at Min Y").getDouble();
         tinkersurvivalMainhandAttackFix = config.get("Tinkers_Survival", "Tinkers Survival Main Hand Fix", true, "Whether to fix an empty main hand never dealing damage").getBoolean();
-        tinkersurvivalDisableToolcheck = config.get("Tinkers_Survival", "Tinkers Survival Disable Tool Check", true, "Whether to disable right tool checks, always allowing mining a block regardless of its required tool").getBoolean();
+        tinkersurvivalDisableToolcheck = config.get("Tinkers_Survival", "Tinkers Survival Disable Tool Check", false, "Whether to disable right tool checks, always allowing mining a block regardless of its required tool").getBoolean();
         config.save();
     }
 

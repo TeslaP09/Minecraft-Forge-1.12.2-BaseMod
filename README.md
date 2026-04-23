@@ -1,2 +1,2 @@
-# SRPTweaks 1.12.2  1.3.15
+# SRPTweaks 1.12.2  1.3.16
  SRPTweaks add various tweaks for private modpack purposes to SRParasites and HBM's NTM Extended Edition, together with some compatability tweaks for Simple Difficulty for Underdog and various mixin fixes for other mods, all with @Pseudo, so none of those mods are dependencies.

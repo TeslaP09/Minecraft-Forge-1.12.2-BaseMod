@@ -30,6 +30,11 @@ public abstract class MixinTinkerSurvivalHarvestEventHandler {
 
     @Inject(method = "breakBlock", at = @At(value = "HEAD"), cancellable = true)
     private void injectBreakBlockCheck(BlockEvent.BreakEvent event, CallbackInfo ci) {
+        if (tinkersurvivalDisableToolcheck) {
+            ci.cancel();
+            return;
+        }
+
         if (!event.getWorld().isRemote) {
             EntityPlayer player = event.getPlayer();
             Block block = event.getState().getBlock();
