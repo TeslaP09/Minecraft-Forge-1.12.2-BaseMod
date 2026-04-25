@@ -5,18 +5,19 @@
   "compatibilityLevel": "JAVA_8",
   "verbose": true,
   "mixins": [
-    "MixinTinkerSurvivalItemUse",
+    "MixinBountifulBaublesPotionNegation",
     "MixinDynamicLightsDroppedItemsLightSourceClient",
+    "MixinDynamicLightsPlayerSelfLightSourceClient",
     "MixinHBMEntityFalloutRain",
     "MixinHBMEntityFalloutUnderGround",
-    "MixinSRPEntityParasiteBase",
     "MixinHBMExplosionNukeGeneric",
-    "MixinTinkerSurvivalHarvestEventHandler",
-    "MixinSimpleDifficultyModifierAltitude",
+    "MixinHBMRadiationWorldHandler",
     "MixinParasiteEventWorld",
-    "MixinDynamicLightsPlayerSelfLightSourceClient",
-    "MixinBountifulBaublesPotionNegation",
-    "MixinHBMRadiationWorldHandler"
+    "MixinSimpleDifficultyModifierAltitude",
+    "MixinSRPEntityParasiteBase",
+    "MixinTinkerSurvivalHarvestEventHandler",
+    "MixinTinkerSurvivalItemUse",
+    "MixinTinkerSurvivalRecipes"
   ],
   "client": [
     "MixinB3M_GuiIngame",

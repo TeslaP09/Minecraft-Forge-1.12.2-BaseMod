@@ -138,6 +138,7 @@ public class ModConfigManager {
     public static double tinkersurvivalHarderBranchMiningMinMulti;
     public static boolean tinkersurvivalMainhandAttackFix;
     public static boolean tinkersurvivalDisableToolcheck;
+    public static boolean tinkersurvivalDisableFlintRecipes;
 
 
     public static void SRPTweaksConfig() {
@@ -185,6 +186,7 @@ public class ModConfigManager {
         tinkersurvivalHarderBranchMiningMinMulti = config.get("Tinkers_Survival", "Harder Branch Mining Min Slowdown Multiplier", 0.3, "If Tinkers Survival Harder Branch Mining, what should be the min slowdown multiplier at Min Y").getDouble();
         tinkersurvivalMainhandAttackFix = config.get("Tinkers_Survival", "Tinkers Survival Main Hand Fix", true, "Whether to fix an empty main hand never dealing damage").getBoolean();
         tinkersurvivalDisableToolcheck = config.get("Tinkers_Survival", "Tinkers Survival Disable Tool Check", false, "Whether to disable right tool checks, always allowing mining a block regardless of its required tool").getBoolean();
+        tinkersurvivalDisableFlintRecipes = config.get("Tinkers_Survival", "Tinkers Survival Disable Flint Recipes", false, "Whether to disable flint to TinkerSurival flint shards recipes, as they load after CraftTweaker (for modpack use, to add your own recipes, e.g. NoTreePunching flint shards)").getBoolean();
         config.save();
     }
 
