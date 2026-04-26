@@ -139,6 +139,18 @@ public class ModConfigManager {
     public static boolean tinkersurvivalMainhandAttackFix;
     public static boolean tinkersurvivalDisableToolcheck;
     public static boolean tinkersurvivalDisableFlintRecipes;
+    public static boolean tinkersurvivalDisablePlankStickRecipes;
+    public static String[] tinkersurvivalDisablePlankStickRecipesContains = new String[]{
+            "planks",
+            "painted_wood",
+            "reeds_block"
+    };
+
+    public static boolean tinkersurvivalDisableSaplingStickRecipes;
+    public static String[] tinkersurvivalDisableSaplingStickRecipesContains = new String[]{
+            "sapling",
+            "seed"
+    };
 
 
     public static void SRPTweaksConfig() {
@@ -159,7 +171,7 @@ public class ModConfigManager {
         disableDynamicLightsAR = config.get("Dynamic_Lights", "Disable Dynamic lights on AR Planets", true, "Dynamically disables dynamic lights by Atomic Stryker for items that are not waterproof according to the DL config on planets that have their atmosphere defined as low/no oxygen.").getBoolean();
         limitB3MHudWithItem = config.get("B3M", "Only Show B3M Time HUD with Item", 1, "Dynamically disables the B3M time hud (if installed) when the player is not in possession of B3M HUD Item. 1 Checks the hotbar, 2 the whole player inventory.").getInt();
         B3MHudItem = config.get("B3M", "B3M HUD Item", "minecraft:clock", "The Item to lock the B3M HUD behind").getString();
-        changeSDAltitudeHandling = config.get("Simple_Difficulty", "Change Simple Difficulty Altitude Handling", true, "Whether to change Simple Difficulty's altitude temperature handling. Will override Universal Tweaks and SD itself, disable if you want to use a different mod's mixin.").getBoolean();
+        changeSDAltitudeHandling = config.get("Simple_Difficulty", "Change Simple Difficulty Altitude Handling", false, "Whether to change Simple Difficulty's altitude temperature handling. Will override Universal Tweaks and SD itself, disable if you want to use a different mod's mixin or my SD fork that includes the same tweak.").getBoolean();
         SDAlditudeModifierSeaLevel = config.get("Simple_Difficulty", "Difficulty Altitude Handling - Sea Level", 63, "Sea level if Change Simple Difficulty Altitude Handling == true.").getInt();
         SDAlditudeModifierAbove = config.get("Simple_Difficulty", "Difficulty Altitude Handling - Modifier Above Sea Level", 1.0, "Temperature modifier above sea level if Change Simple Difficulty Altitude Handling == true.").getDouble();
         SDAlditudeModifierBelow = config.get("Simple_Difficulty", "Difficulty Altitude Handling - Modifier Below Sea Level", 1.0, "Temperature modifier below sea level if Change Simple Difficulty Altitude Handling == true.").getDouble();
@@ -187,6 +199,10 @@ public class ModConfigManager {
         tinkersurvivalMainhandAttackFix = config.get("Tinkers_Survival", "Tinkers Survival Main Hand Fix", true, "Whether to fix an empty main hand never dealing damage").getBoolean();
         tinkersurvivalDisableToolcheck = config.get("Tinkers_Survival", "Tinkers Survival Disable Tool Check", false, "Whether to disable right tool checks, always allowing mining a block regardless of its required tool").getBoolean();
         tinkersurvivalDisableFlintRecipes = config.get("Tinkers_Survival", "Tinkers Survival Disable Flint Recipes", false, "Whether to disable flint to TinkerSurival flint shards recipes, as they load after CraftTweaker (for modpack use, to add your own recipes, e.g. NoTreePunching flint shards)").getBoolean();
+        tinkersurvivalDisablePlankStickRecipes = config.get("Tinkers_Survival", "Tinkers Survival Disable Plank Stick Recipes", false, "Whether to disable flint to TinkerSurival stick recipes from plankWood planks, as they load after CraftTweaker (for modpack use, to add your own recipes, e.g. from plankWood to stick)").getBoolean();
+        tinkersurvivalDisablePlankStickRecipesContains = config.getStringList("Tinkers Survival Disable Plank Stick Recipes Contains" ,"Tinkers_Survival" , tinkersurvivalDisablePlankStickRecipesContains, "If registry name of the input contains this string, remove its recipe too (some mods may load after TinkerSurvival and have not yet initialized their oreDict)");
+        tinkersurvivalDisableSaplingStickRecipes = config.get("Tinkers_Survival", "Tinkers Survival Disable Sapling Stick Recipes", false, "Whether to disable flint to TinkerSurival stick recipes from treeSapling saplings, as they load after CraftTweaker (for modpack use, to add your own recipes, e.g. from treeSapling to stick)").getBoolean();
+        tinkersurvivalDisableSaplingStickRecipesContains = config.getStringList("Tinkers Survival Disable Sapling Stick Recipes Contains" ,"Tinkers_Survival" , tinkersurvivalDisableSaplingStickRecipesContains, "If registry name of the input contains this string, remove its recipe too (some mods may load after TinkerSurvival and have not yet initialized their oreDict)");
         config.save();
     }
 
