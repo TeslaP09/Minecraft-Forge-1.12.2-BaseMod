@@ -44,18 +44,22 @@ public class ModConfigManager {
             "com.dhanantry.scapeandrunparasites.item.tool.WeaponToolMeleeBase",
             "com.dhanantry.scapeandrunparasites.item.tool.WeaponToolRangeBase",
 
-            "com.existingeevee.nocubesrptweaks.items.ItemTwistedMalletReplacement",
-            "com.existingeevee.nocubesrptweaks.items.ItemTwistedGreatAxeReplacement",
-            "com.existingeevee.nocubesrptweaks.items.ItemTwistedBowReplacement",
-            "com.existingeevee.nocubesrptweaks.items.ItemPestilentMiasmReplacement",
-            "com.existingeevee.nocubesrptweaks.items.ItemGoreRapierReplacement",
-            "com.existingeevee.nocubesrptweaks.items.ItemGoreHatchetReplacement",
-            "com.existingeevee.nocubesrptweaks.items.ItemGoreCombatBowReplacement",
-            "com.existingeevee.nocubesrptweaks.items.ItemCarapaceShellbreakerReplacement",
-            "com.existingeevee.nocubesrptweaks.items.ItemHostTentacleReplacement",
             "com.existingeevee.nocubesrptweaks.items.ItemBolsterClawReplacement",
+            "com.existingeevee.nocubesrptweaks.items.ItemCarapaceShellbreakerReplacement",
             "com.existingeevee.nocubesrptweaks.items.ItemEvolutionAxeReplacement",
             "com.existingeevee.nocubesrptweaks.items.ItemEvolutionBowReplacement",
+            "com.existingeevee.nocubesrptweaks.items.ItemGoreCombatBowReplacement",
+            "com.existingeevee.nocubesrptweaks.items.ItemGoreHatchetReplacement",
+            "com.existingeevee.nocubesrptweaks.items.ItemGoreRapierReplacement",
+            "com.existingeevee.nocubesrptweaks.items.ItemHostTentacleReplacement",
+            "com.existingeevee.nocubesrptweaks.items.ItemMimicBladeRedReplacement",
+            "com.existingeevee.nocubesrptweaks.items.ItemOverlordBladeReplacement",
+            "com.existingeevee.nocubesrptweaks.items.ItemPestilentMiasmReplacement",
+            "com.existingeevee.nocubesrptweaks.items.ItemTwistedBowReplacement",
+            "com.existingeevee.nocubesrptweaks.items.ItemTwistedGreatAxeReplacement",
+            "com.existingeevee.nocubesrptweaks.items.ItemTwistedMalletReplacement",
+            "com.existingeevee.nocubesrptweaks.items.ItemWormToothKnifeReplacement",
+            "com.existingeevee.nocubesrptweaks.items.ItemWormToothMacheteReplacement",
 
             "net.mcreator.nocubessrparmory.item.ItemCarapaceBroadsword$1",
             "net.mcreator.nocubessrparmory.item.ItemCarapaceShellbreaker$1",
@@ -77,7 +81,12 @@ public class ModConfigManager {
             "net.mcreator.nocubessrparmory.item.ItemPestilentShuriken$RangedItem",
             "net.mcreator.nocubessrparmory.item.ItemTwistedDagger$1",
             "net.mcreator.nocubessrparmory.item.ItemTheReaper$1",
-            "net.mcreator.nocubessrparmory.item.ItemTheReaperTrue$1"
+            "net.mcreator.nocubessrparmory.item.ItemTheReaperTrue$1",
+
+            "net.mcreator.nocubessrpnests.item.ItemWormToothKnife$1",
+            "net.mcreator.nocubessrpnests.item.ItemWormToothKnifeThrown$1",
+            "net.mcreator.nocubessrpnests.item.ItemWormToothMachete$1",
+            "net.mcreator.nocubessrpnests.item.ItemWormToothPickaxe$1"
     };
     public static ArrayList<Class<?>> parasiteWeaponsClassList = new ArrayList<>();
     public static boolean globalBedSpawnOverridesDimension;
