@@ -8,7 +8,7 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "1.3.19"
+version = "1.3.20"
 group = "com.tlp.srptweaks"
 archivesBaseName = "SRPTweaks"
 
@@ -51,6 +51,7 @@ dependencies {
     compile files("libs/soundphysics-1.1.15.jar")
     compile files("libs/Bountiful Baubles-1.12.2-0.1.8.jar")
     compile files("libs/TinkerSurvival-1.12.2-1.2.3.2.jar")
+    compile files("libs/SRPCalamity-1.12.2-v0.3.0.jar")
 }
 
 processResources {
