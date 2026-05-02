@@ -1,5 +1,6 @@
 package com.tlp.srptweaks;
 
+import com.tlp.srptweaks.handlers.HungerHandler;
 import com.tlp.srptweaks.handlers.SubscriptionHandlerParasites;
 import com.tlp.srptweaks.util.ModConfigManager;
 import com.tlp.srptweaks.util.Resource;
@@ -14,6 +15,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Method;
+
+import static com.tlp.srptweaks.util.ModConfigManager.enableHungerTweaks;
 
 @Mod(modid = Resource.MOD_ID, name = Resource.NAME, version = Resource.VERSION, dependencies = Resource.DEPENDENCIES)
 public class SRPTweaks {
@@ -42,6 +45,9 @@ public class SRPTweaks {
         logger.info("Finished saving / loading mod configuration");
         if (Loader.isModLoaded("srparasites")) {
             MinecraftForge.EVENT_BUS.register(new SubscriptionHandlerParasites());
+        }
+        if (Loader.isModLoaded("applecore") && enableHungerTweaks) {
+            MinecraftForge.EVENT_BUS.register(new HungerHandler());
         }
     }
 

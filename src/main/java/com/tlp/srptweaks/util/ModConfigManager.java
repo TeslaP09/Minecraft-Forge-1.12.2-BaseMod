@@ -160,6 +160,11 @@ public class ModConfigManager {
             "sapling",
             "seed"
     };
+    public static boolean enableHungerTweaks;
+    public static int oversaturationMode;
+    public static int saturationTicksPerOverflownSaturation;
+    public static int saturationDurationCap;
+    public static double hungerSaturationConversionRate;
 
 
     public static void SRPTweaksConfig() {
@@ -212,6 +217,11 @@ public class ModConfigManager {
         tinkersurvivalDisablePlankStickRecipesContains = config.getStringList("Tinkers Survival Disable Plank Stick Recipes Contains" ,"Tinkers_Survival" , tinkersurvivalDisablePlankStickRecipesContains, "If registry name of the input contains this string, remove its recipe too (some mods may load after TinkerSurvival and have not yet initialized their oreDict)");
         tinkersurvivalDisableSaplingStickRecipes = config.get("Tinkers_Survival", "Tinkers Survival Disable Sapling Stick Recipes", false, "Whether to disable flint to TinkerSurival stick recipes from treeSapling saplings, as they load after CraftTweaker (for modpack use, to add your own recipes, e.g. from treeSapling to stick)").getBoolean();
         tinkersurvivalDisableSaplingStickRecipesContains = config.getStringList("Tinkers Survival Disable Sapling Stick Recipes Contains" ,"Tinkers_Survival" , tinkersurvivalDisableSaplingStickRecipesContains, "If registry name of the input contains this string, remove its recipe too (some mods may load after TinkerSurvival and have not yet initialized their oreDict)");
+        enableHungerTweaks = config.get("Hunger", "Enable Hunger Tweaks", true, "If true, enable hunger tweaks like saturation rollover and oversaturation").getBoolean();
+        oversaturationMode = config.get("Hunger", "Oversaturation Mode", 1, "1: remove the saturation cap, 2: convert excess saturation into potion effects, 0 to disable").getInt();
+        saturationTicksPerOverflownSaturation = config.get("Hunger", "Saturation Ticks Per Overflown Saturation", 100, "Per point of saturation that'd go above max hunger, add this amount of the saturation effect").getInt();
+        saturationDurationCap = config.get("Hunger", "Saturation Duration Cap", 2000, "The player cannot get more than this amount of saturation per overflowing food item").getInt();
+        hungerSaturationConversionRate = config.get("Hunger", "Hunger Saturation Conversion Rate", 0.5, "Per hunger point overflowing, add this much saturation, set to 0 to disable").getDouble();
         config.save();
     }
 
